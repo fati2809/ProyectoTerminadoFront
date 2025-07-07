@@ -1,0 +1,49 @@
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+  padding: 1rem;
+  margin: 0;
+  border: none;
+}
+
+.not-found-content {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(5px);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+.not-found-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #FFB300;
+  margin: 0.5rem 0;
+}
+
+.not-found-message {
+  font-size: 1.25rem;
+  color: #424242;
+  margin-bottom: 2rem;
+}
+
+:host ::ng-deep .modern-button {
+  border-radius: 8px;
+  background: linear-gradient(90deg, #4FC3F7, #0288D1);
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+:host ::ng-deep .modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

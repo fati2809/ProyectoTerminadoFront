@@ -1,0 +1,56 @@
+<div class="login-container">
+  <p-toast position="top-center"></p-toast>
+  <p-card [style]="cardStyles">
+    <!-- Header con ícono animado -->
+    <ng-template #header>
+      <div class="header-container">
+        <div class="avatar-circle">
+          <i class="pi pi-user avatar-icon"></i>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Título -->
+    <ng-template #title>
+      <div class="login-title">Bienvenido</div>
+    </ng-template>
+
+    <!-- Inputs -->
+    <div class="form-fields">
+      <!-- Usuario -->
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <i class="pi pi-user"></i>
+        </p-inputgroup-addon>
+        <input pInputText [(ngModel)]="username" placeholder="Usuario" class="input-modern" />
+      </p-inputgroup>
+
+      <!-- Contraseña -->
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <i class="pi pi-lock"></i>
+        </p-inputgroup-addon>
+        <input pInputText type="password" [(ngModel)]="password" placeholder="Contraseña" class="input-modern" />
+      </p-inputgroup>
+    </div>
+
+    <!-- Botones -->
+    <ng-template #footer>
+      <div class="login-buttons">
+        <p-button
+          (click)="login()"
+          label="Iniciar Sesión"
+          severity="primary"
+          [ngClass]="'w-full modern-button'"
+        ></p-button>
+        <p-button
+          label="Registrarse"
+          severity="secondary"
+          [outlined]="true"
+          [ngClass]="'w-full modern-button-outlined'"
+          routerLink="/auth/register"
+        ></p-button>
+      </div>
+    </ng-template>
+  </p-card>
+</div>
