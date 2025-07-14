@@ -70,39 +70,6 @@
   outline: none;
 }
 
-.login-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.modern-button {
-  border-radius: 8px;
-  background: linear-gradient(90deg, #4FC3F7, #0288D1);
-  color: #ffffff;
-  border: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.modern-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.modern-button-outlined {
-  border-radius: 8px;
-  border: 2px solid #4FC3F7;
-  background: transparent;
-  color: #4FC3F7;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.modern-button-outlined:hover {
-  background-color: rgba(79, 195, 247, 0.1);
-  transform: translateY(-2px);
-}
-
 :host ::ng-deep .p-card {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(5px);

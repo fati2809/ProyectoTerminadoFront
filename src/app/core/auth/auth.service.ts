@@ -8,7 +8,8 @@ import { RespuestaAutenticacion } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/auth'; // Proxy Flask
+  // archivo enviroments.ts
+  private apiUrl = 'http://localhost:5000/auth';
 
   constructor(private http: HttpClient) {}
 

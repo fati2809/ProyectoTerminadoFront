@@ -47,7 +47,11 @@ export class LoginComponent {
     padding: '1.5rem'
   };
 
-  constructor(private authService: AuthService, private router: Router, private messageService: MessageService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   login() {
     if (!this.username || !this.password) {
@@ -66,6 +70,7 @@ export class LoginComponent {
         console.log('Login exitoso', response);
         if (response.intData?.token) {
           this.authService.setToken(response.intData.token);
+          localStorage.setItem('username', this.username);
           this.messageService.add({
             severity: 'success',
             summary: 'Éxito',
@@ -74,7 +79,7 @@ export class LoginComponent {
           });
           setTimeout(() => {
             this.router.navigate(['/tasks/task-list']);
-          }, 1000); // Retraso para que el usuario vea el mensaje de éxito
+          }, 1000);
         } else {
           this.messageService.add({
             severity: 'error',
