@@ -7,5 +7,4 @@ export interface RespuestaAutenticacion {
   intData?: {
     token: string;
   };
-
 }

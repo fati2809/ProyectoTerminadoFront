@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { authInterceptor } from './core/auth/auth.interceptor'; // Importa la función
+import Aura from '@primeng/themes/aura';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,7 +18,10 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       ripple: true,
+      theme: {
+                preset: Aura
+            },
     }),
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor])) // Usa la función interceptor
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor]))
   ]
 };
