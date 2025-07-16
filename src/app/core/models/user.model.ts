@@ -4,7 +4,13 @@ export interface Usuario {
 }
 
 export interface RespuestaAutenticacion {
-  intData?: {
-    token: string;
+  statusCode: number;
+  intData: {
+    message: string;
+    token?: string;
+    data?: {
+      qr_code?: string;
+      secret?: string;
+    };
   };
 }

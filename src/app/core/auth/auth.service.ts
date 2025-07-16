@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/user.model';
-import { RespuestaAutenticacion } from '../models/user.model';
+import { Usuario, RespuestaAutenticacion } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // archivo enviroments.ts
   private apiUrl = 'http://localhost:5000/auth';
 
   constructor(private http: HttpClient) {}
 
-  register(userData: Usuario): Observable<RespuestaAutenticacion> {
+  register(userData: Usuario & { status: string }): Observable<RespuestaAutenticacion> {
     return this.http.post<RespuestaAutenticacion>(`${this.apiUrl}/register_user`, userData);
   }
 
-  login(credentials: Usuario): Observable<RespuestaAutenticacion> {
+  login(credentials: Usuario & { otp: string }): Observable<RespuestaAutenticacion> {
     return this.http.post<RespuestaAutenticacion>(`${this.apiUrl}/login`, credentials);
   }
 
@@ -31,6 +29,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
   }
 
   isLoggedIn(): boolean {

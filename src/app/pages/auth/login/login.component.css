@@ -7,6 +7,7 @@
   padding: 1rem;
   margin: 0; /* Elimina cualquier borde o margen externo */
   border: none; /* Elimina el borde blanco alrededor de la pantalla */
+  position: relative; /* Asegura que los elementos hijos se posicionen correctamente */
 }
 
 .header-container {
@@ -54,10 +55,11 @@
 .input-modern {
   border: none;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.95); /* Aumenta la opacidad para mejor contraste */
   color: #212121;
   padding: 0.75rem;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Asegura que el input ocupe todo el espacio disponible */
 }
 
 .input-modern::placeholder {
@@ -71,17 +73,22 @@
 }
 
 :host ::ng-deep .p-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95); /* Aumenta la opacidad para mejor legibilidad */
   backdrop-filter: blur(5px);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   max-width: 400px;
   width: 100%;
+  color: #212121; /* Asegura que el texto dentro del card sea legible */
+}
+
+:host ::ng-deep .p-card-content {
+  padding: 0; /* Ajusta el padding interno para evitar superposiciones */
 }
 
 :host ::ng-deep .p-inputgroup-addon {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.95); /* Aumenta la opacidad para consistencia */
   color: #212121;
   border: none;
   border-radius: 8px 0 0 8px;
@@ -89,14 +96,14 @@
 
 /* Estilos personalizados para p-toast */
 :host ::ng-deep .p-toast {
-  opacity: 0.95;
+  opacity: 1; /* Elimina la opacidad parcial para mayor visibilidad */
   z-index: 1000;
 }
 
 :host ::ng-deep .p-toast-message {
   border-radius: 12px;
   backdrop-filter: blur(5px);
-  background: rgba(255, 255, 255, 0.9) !important;
+  background: rgba(255, 255, 255, 0.95) !important; /* Aumenta la opacidad */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   color: #212121 !important;
   padding: 1rem;
@@ -139,4 +146,27 @@
 
 :host ::ng-deep .p-toast-message-success .p-toast-message-icon {
   color: #66BB6A;
+}
+
+/* Estilos específicos para el código QR */
+.qr-container {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.qr-container h3 {
+  font-size: 1rem;
+  color: #212121;
+  margin-bottom: 0.5rem;
+}
+
+.qr-container img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste para los botones en el footer */
+:host ::ng-deep .p-button {
+  margin: 0.5rem 0;
 }
