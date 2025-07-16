@@ -12,25 +12,33 @@
 
     <!-- Título -->
     <ng-template #title>
-      <div class="login-title">Bienvenido</div>
+      <div class="login-title">Inicio de Sesión</div>
     </ng-template>
 
     <!-- Inputs -->
     <div class="form-fields">
-      <!-- Usuario -->
+      <div class="label">Nombre de usuario</div>
       <p-inputgroup>
         <p-inputgroup-addon>
           <i class="pi pi-user"></i>
         </p-inputgroup-addon>
-        <input pInputText [(ngModel)]="username" placeholder="Usuario" class="input-modern" />
+        <input pInputText [(ngModel)]="username" placeholder="Usuario" class="input-modern" name="username" required />
       </p-inputgroup>
 
-      <!-- Contraseña -->
+      <div class="label">Contraseña</div>
       <p-inputgroup>
         <p-inputgroup-addon>
           <i class="pi pi-lock"></i>
         </p-inputgroup-addon>
         <input pInputText type="password" [(ngModel)]="password" placeholder="Contraseña" class="input-modern" />
+      </p-inputgroup>
+
+      <div class="label">Código OTP</div>
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <i class="pi pi-shield"></i>
+        </p-inputgroup-addon>
+        <input pInputText [(ngModel)]="otp" placeholder="Código OTP" class="input-modern" name="otp" required />
       </p-inputgroup>
     </div>
 
@@ -44,7 +52,7 @@
           [ngClass]="'w-full modern-button'"
         ></p-button>
         <p-button
-          label="Registrarse"
+          label="Regístrate"
           severity="secondary"
           [outlined]="true"
           [ngClass]="'w-full modern-button-outlined'"

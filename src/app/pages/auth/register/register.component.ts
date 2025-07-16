@@ -36,6 +36,7 @@ export class RegisterComponent {
   username: string = '';
   password: string = '';
   confirmPassword: string = '';
+  qrCode: string = '';
 
   cardStyles = {
     width: '25rem',
@@ -80,26 +81,37 @@ export class RegisterComponent {
     };
     this.authService.register(userData).subscribe({
       next: (response: RespuestaAutenticacion) => {
-        console.log('Registro exitoso', response);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Usuario registrado exitosamente',
-          life: 3000
-        });
-        setTimeout(() => {
-          this.router.navigate(['/auth/login']);
-        }, 1000); // Retraso para mostrar el mensaje de éxito antes de redirigir
+        if (response.statusCode === 201) {
+          this.qrCode = response.intData?.data?.qr_code || '';
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: 'Usuario registrado exitosamente. Escanea el código QR con Google Authenticator.',
+            life: 5000
+          });
+          // No redirigir inmediatamente para permitir escanear el QR
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: response.intData?.message || 'Error al registrar el usuario',
+            life: 3000
+          });
+        }
       },
       error: (err) => {
         console.error('Error en el registro:', err);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Error al registrar el usuario. Intenta de nuevo.',
+          detail: err.error?.intData?.message || 'Error al registrar el usuario. Intenta de nuevo.',
           life: 3000
         });
       }
     });
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/auth/login']);
   }
 }

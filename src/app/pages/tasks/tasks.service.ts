@@ -12,10 +12,7 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   getTasksByUser(createdBy: string): Observable<RespuestaTareas> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get<RespuestaTareas>(`${this.apiUrl}/tasks/${createdBy}`, { headers });
+
+    return this.http.get<RespuestaTareas>(`${this.apiUrl}/tasks/${createdBy}`);
   }
 }

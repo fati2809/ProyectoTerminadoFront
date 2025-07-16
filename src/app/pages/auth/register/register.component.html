@@ -22,7 +22,7 @@
         <p-inputgroup-addon>
           <i class="pi pi-user"></i>
         </p-inputgroup-addon>
-        <input pInputText [(ngModel)]="username" placeholder="Usuario" class="input-modern" />
+        <input pInputText [(ngModel)]="username" placeholder="Usuario" class="input-modern" name="username" required />
       </p-inputgroup>
 
       <div class="label">Contraseña</div>
@@ -30,7 +30,7 @@
         <p-inputgroup-addon>
           <i class="pi pi-lock"></i>
         </p-inputgroup-addon>
-        <input pInputText type="password" [(ngModel)]="password" placeholder="Contraseña" class="input-modern" />
+        <input pInputText type="password" [(ngModel)]="password" placeholder="Contraseña" class="input-modern" name="password" required />
       </p-inputgroup>
 
       <div class="label">Confirmar Contraseña</div>
@@ -38,8 +38,14 @@
         <p-inputgroup-addon>
           <i class="pi pi-lock"></i>
         </p-inputgroup-addon>
-        <input pInputText type="password" [(ngModel)]="confirmPassword" placeholder="Confirmar Contraseña" class="input-modern" />
+        <input pInputText type="password" [(ngModel)]="confirmPassword" placeholder="Confirmar Contraseña" class="input-modern" name="confirmPassword" required />
       </p-inputgroup>
+    </div>
+
+    <!-- Código QR -->
+    <div *ngIf="qrCode" class="mt-4">
+      <h3>Escanea este código QR con Google Authenticator</h3>
+      <img [src]="qrCode" alt="QR Code" style="max-width: 200px;" />
     </div>
 
     <!-- Botones -->
@@ -52,6 +58,15 @@
           [ngClass]="'w-full modern-button'"
         ></p-button>
         <p-button
+          *ngIf="qrCode"
+          label="Ir a Iniciar Sesión"
+          severity="secondary"
+          [outlined]="true"
+          [ngClass]="'w-full modern-button-outlined'"
+          (click)="navigateToLogin()"
+        ></p-button>
+        <p-button
+          *ngIf="!qrCode"
           label="Iniciar Sesión"
           severity="secondary"
           [outlined]="true"

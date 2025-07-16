@@ -37,6 +37,7 @@ import { Usuario, RespuestaAutenticacion } from '../../../core/models/user.model
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  otp: string = '';
 
   cardStyles = {
     width: '25rem',
@@ -54,21 +55,24 @@ export class LoginComponent {
   ) {}
 
   login() {
-    if (!this.username || !this.password) {
+    if (!this.username || !this.password || !this.otp) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Usuario y contraseña son requeridos',
+        detail: 'Usuario, contraseña y código OTP son requeridos',
         life: 3000
       });
       return;
     }
-    const credentials: Usuario = { username: this.username, password: this.password };
+    const credentials: Usuario & { otp: string } = {
+      username: this.username,
+      password: this.password,
+      otp: this.otp
+    };
     console.log('Enviando solicitud de login con:', credentials);
     this.authService.login(credentials).subscribe({
       next: (response: RespuestaAutenticacion) => {
-        console.log('Login exitoso', response);
-        if (response.intData?.token) {
+        if (response.statusCode === 200 && response.intData?.token) {
           this.authService.setToken(response.intData.token);
           localStorage.setItem('username', this.username);
           this.messageService.add({
@@ -84,7 +88,7 @@ export class LoginComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Credenciales incorrectas',
+            detail: response.intData?.message || 'Credenciales incorrectas',
             life: 3000
           });
         }
@@ -94,7 +98,7 @@ export class LoginComponent {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Error al iniciar sesión. Intenta de nuevo.',
+          detail: err.error?.intData?.message || 'Error al iniciar sesión. Intenta de nuevo.',
           life: 3000
         });
       }
