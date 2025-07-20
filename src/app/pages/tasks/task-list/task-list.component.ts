@@ -4,40 +4,20 @@ import { Task } from '../../../core/models/task.model';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-import { MenubarModule } from 'primeng/menubar';
-import { AvatarModule } from 'primeng/avatar';
-import { MenuItem } from 'primeng/api';
+import { DragDropModule } from 'primeng/dragdrop';
+import { HeaderComponent } from '../../../shared/components/header/header.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
-  imports: [CommonModule, PanelModule, CardModule, MenubarModule, AvatarModule]
+  imports: [CommonModule, PanelModule, CardModule, DragDropModule, HeaderComponent]
 })
 export class
 TaskListComponent implements OnInit {
   tasks: Task[] = [];
-  items: MenuItem[] = [
-    {
-      label: 'Inicio',
-      icon: 'pi pi-home',
-      badge: '2'
-    },
-    {
-      label: 'Configuración',
-      icon: 'pi pi-cog',
-      items: [
-        { label: 'Perfil', icon: 'pi pi-user' },
-        { label: 'Privacidad', icon: 'pi pi-lock', shortcut: 'Ctrl+P' }
-      ]
-    },
-    {
-      label: 'Salir',
-      icon: 'pi pi-sign-out',
-      badge: 'NEW'
-    }
-  ];
+  draggedTask: Task | null = null;
   kanbanColumns: any[] = [];
 
   constructor(private taskService: TaskService) {}
@@ -58,6 +38,40 @@ TaskListComponent implements OnInit {
         }
       });
     }
+  }
+
+  // Guardar la tarea que se está arrastrando
+  dragStart(task: Task) {
+    this.draggedTask = task;
+  }
+
+  // Limpiar la tarea arrastrada al finalizar el arrastre
+  dragEnd() {
+    this.draggedTask = null;
+  }
+
+  // Manejar el evento de soltar la tarea en una columna
+  drop(status: string) {
+    if (this.draggedTask) {
+      // Actualizar el estado de la tarea
+      const updatedTask = { ...this.draggedTask, status };
+      this.updateTaskStatus(updatedTask);
+      // Actualizar las columnas del Kanban
+      this.tasks = this.tasks.map(t => (t.id === updatedTask.id ? updatedTask : t));
+      this.setKanbanColumns();
+    }
+  }
+
+  // Método para actualizar el estado de la tarea en el backend
+  updateTaskStatus(task: Task) {
+    this.taskService.updateTask(task).subscribe({
+      next: (res) => {
+        console.log('Tarea actualizada:', res);
+      },
+      error: (err) => {
+        console.error('Error al actualizar la tarea:', err);
+      }
+    });
   }
 
   setKanbanColumns() {
