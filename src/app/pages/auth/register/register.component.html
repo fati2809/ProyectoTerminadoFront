@@ -54,23 +54,12 @@
         <p-button
           (click)="register()"
           label="Registrarse"
-          severity="primary"
-          [ngClass]="'w-full modern-button'"
-        ></p-button>
-        <p-button
-          *ngIf="qrCode"
-          label="Ir a Iniciar Sesión"
-          severity="secondary"
-          [outlined]="true"
-          [ngClass]="'w-full modern-button-outlined'"
-          (click)="navigateToLogin()"
+          severity="success"
         ></p-button>
         <p-button
           *ngIf="!qrCode"
           label="Iniciar Sesión"
-          severity="secondary"
-          [outlined]="true"
-          [ngClass]="'w-full modern-button-outlined'"
+          severity="info"
           routerLink="/auth/login"
         ></p-button>
       </div>

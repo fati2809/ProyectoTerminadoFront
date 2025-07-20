@@ -1,24 +1,9 @@
-<p-menubar [model]="items">
-    <ng-template #item let-item let-root="root">
-        <a pRipple class="flex items-center p-menubar-item-link">
-            <span>{{ item.label }}</span>
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
-        </a>
-    </ng-template>
-    <ng-template #end>
-        <div class="flex items-center gap-2">
-            <input type="text" pInputText placeholder="Search" class="w-36" />
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-        </div>
-    </ng-template>
-</p-menubar>
+<app-header [headerTitle]="'Tareas'"></app-header>
 
 <div class="kanban-board">
-  <p-panel *ngFor="let column of kanbanColumns" [header]="column.header" class="kanban-column" [style]="{'background-color': getColumnColor(column.status)}">
+  <p-panel *ngFor="let column of kanbanColumns" [header]="column.header" class="kanban-column" [style]="{'background-color': getColumnColor(column.status)}" pDroppable (onDrop)="drop(column.status)">
     <ng-container *ngFor="let task of column.tasks">
-
-      <p-card [ngStyle]="{'background-color': getCardColor(task.status)}">
+      <p-card [ngStyle]="{'background-color': getCardColor(task.status)}" pDraggable (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()">
         <ng-template pTemplate="header">
           <h4 class="task-title">{{ task.name }}</h4>
         </ng-template>
@@ -29,7 +14,6 @@
           <small class="task-deadline">Fecha límite: {{ task.dead_line }}</small>
         </div>
       </p-card>
-
       <br>
     </ng-container>
   </p-panel>

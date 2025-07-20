@@ -15,4 +15,11 @@ export class TaskService {
 
     return this.http.get<RespuestaTareas>(`${this.apiUrl}/tasks/${createdBy}`);
   }
+
+  updateTask(task: Task): Observable<any> {
+
+    return this.http.put(`${this.apiUrl}/tasks/${task.id}`, task);
+  }
 }
+
+
