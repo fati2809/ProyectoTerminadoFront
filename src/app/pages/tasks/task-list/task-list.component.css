@@ -1,3 +1,10 @@
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 .kanban-board {
   display: flex;
   gap: 15px;
@@ -42,12 +49,18 @@
   box-shadow: 0 6px 16px rgba(74, 74, 74, 0.35);
 }
 
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px 0;
+}
+
 .task-title {
   margin: 0;
   font-size: 1.2em;
   font-weight: bold;
   color: #ffffff;
-  padding: 12px 16px 0;
 }
 
 .task-content {
@@ -76,3 +89,109 @@
   background-color: rgba(255, 255, 255, 0.452);
 }
 
+.add-task-button {
+  margin-right: 10px;
+}
+
+.edit-button {
+  margin-right: 8px;
+}
+
+.delete-button {
+  margin-right: 8px;
+}
+
+/* Estilos para el diálogo y el formulario */
+.custom-dialog .p-dialog-content {
+  padding: 20px;
+  background-color: #2c2c2c;
+  color: #ffffff;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field-label {
+  font-size: 0.9em;
+  color: #b0bec5;
+  font-weight: 500;
+}
+
+.input-field {
+  padding: 8px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background-color: #333;
+  color: #ffffff;
+  font-size: 0.95em;
+  width: 100%;
+}
+
+.input-field:focus {
+  border-color: #64b5f6;
+  outline: none;
+  box-shadow: 0 0 5px rgba(100, 181, 246, 0.5);
+}
+
+.textarea-field {
+  resize: vertical;
+  min-height: 80px;
+  pointer-events: auto;
+}
+
+.calendar-field .p-inputtext {
+  width: 100%;
+}
+
+.dropdown-field .p-dropdown {
+  width: 100%;
+}
+
+.checkbox-field {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.p-inputswitch .p-inputswitch-slider {
+  background-color: #444;
+}
+
+.p-inputswitch .p-inputswitch-slider:before {
+  background-color: #64b5f6;
+}
+
+.alert {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  position: relative;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}

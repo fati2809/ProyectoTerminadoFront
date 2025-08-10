@@ -12,13 +12,19 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   getTasksByUser(createdBy: string): Observable<RespuestaTareas> {
-
-    return this.http.get<RespuestaTareas>(`${this.apiUrl}/tasks/${createdBy}`);
+    return this.http.get<RespuestaTareas>(`${this.apiUrl}/tasks/user/${createdBy}`);
   }
 
   updateTask(task: Task): Observable<any> {
+    return this.http.put(`${this.apiUrl}/tasks/${task._id}`, task);
+  }
 
-    return this.http.put(`${this.apiUrl}/tasks/${task.id}`, task);
+  registerTask(task: Task): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register_task`, task);
+  }
+
+  deleteTask(taskId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/tasks/${taskId}`);
   }
 }
 
