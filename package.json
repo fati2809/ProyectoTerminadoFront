@@ -36,7 +36,7 @@
     "tailwindcss": "^4.1.11",
     "tailwindcss-primeui": "^0.6.1",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.10"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.14",
@@ -58,3 +58,4 @@
     "node": "22.x"
   }
 }
+
