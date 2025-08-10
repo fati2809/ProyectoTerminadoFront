@@ -14,7 +14,7 @@ interface JwtPayload {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/auth';
+  private apiUrl = 'http://158.69.197.251:5000/auth';
   private accessTokenSubject = new BehaviorSubject<string | null>(this.getToken());
   public accessToken$ = this.accessTokenSubject.asObservable();
 
