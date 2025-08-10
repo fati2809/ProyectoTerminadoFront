@@ -1,11 +1,30 @@
+
 <app-header [headerTitle]="'Tareas'"></app-header>
+<!-- Mostrar mensaje de límite de tasa -->
+<div *ngIf="rateLimitMessage" class="alert alert-warning">
+  {{ rateLimitMessage }}
+  <button class="close-btn" (click)="clearRateLimitMessage()">×</button>
+</div>
+<div class="header-actions">
+  <button pButton type="button" label="Agregar Tarea" icon="pi pi-plus" class="p-button-success add-task-button" (click)="showAddTaskDialog()"></button>
+</div>
 
 <div class="kanban-board">
   <p-panel *ngFor="let column of kanbanColumns" [header]="column.header" class="kanban-column" [style]="{'background-color': getColumnColor(column.status)}" pDroppable (onDrop)="drop(column.status)">
     <ng-container *ngFor="let task of column.tasks">
       <p-card [ngStyle]="{'background-color': getCardColor(task.status)}" pDraggable (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()">
         <ng-template pTemplate="header">
-          <h4 class="task-title">{{ task.name }}</h4>
+          <div class="task-header">
+            <h4 class="task-title">{{ task.name }}</h4>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-warning p-button-sm edit-button" (click)="editTask(task)"></button>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-danger p-button-sm delete-button"
+              (click)="confirmDelete(task._id)">
+            </button>
+          </div>
         </ng-template>
         <div class="task-content">
           <p class="task-description">{{ task.description }}</p>
@@ -18,3 +37,34 @@
     </ng-container>
   </p-panel>
 </div>
+
+<p-dialog [header]="editMode ? 'Editar Tarea' : 'Nueva Tarea'" [(visible)]="displayDialog" [modal]="true" [style]="{width: '450px', maxHeight: '80vh'}" [draggable]="false" [resizable]="false" [baseZIndex]="1000" class="custom-dialog">
+  <div class="form-container" [style.maxHeight]="displayDialog ? '60vh' : '0'" [style.overflow-y]="displayDialog ? 'auto' : 'hidden'">
+    <div class="form-field">
+      <label for="name" class="field-label">Nombre *</label>
+      <input pInputText id="name" [(ngModel)]="newTask.name" required class="input-field" placeholder="Ingresa el nombre de la tarea" />
+    </div>
+    <div class="form-field">
+      <label for="description" class="field-label">Descripción *</label>
+      <textarea id="description" rows="5" cols="30" pTextarea [(ngModel)]="newTask.description" class="input-field textarea-field"></textarea>
+    </div>
+    <div class="form-field">
+      <label for="dead_line" class="field-label">Fecha Límite *</label>
+      <p-calendar id="dead_line" [(ngModel)]="newTask.dead_line" dateFormat="yy-mm-dd" [showIcon]="true" required></p-calendar>
+    </div>
+    <div class="form-field">
+      <label for="status" class="field-label">Estado *</label>
+      <p-dropdown id="status" [options]="statusOptions" [(ngModel)]="newTask.status" optionLabel="label" optionValue="value" required class="input-field dropdown-field" [appendTo]="'body'" />
+    </div>
+    <div class="form-field checkbox-field">
+      <label for="is_alive" class="field-label">Activa</label>
+      <p-inputSwitch id="is_alive" [(ngModel)]="newTask.is_alive" />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton type="button" label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="cancelTask()"></button>
+    <button pButton type="button" label="Guardar" icon="pi pi-check" class="p-button-primary" (click)="saveTask()" [disabled]="!newTask.name || !newTask.description || !newTask.dead_line"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog key="confirmDelete" header="Confirmación de eliminación" icon="pi pi-exclamation-triangle" [style]="{width: '350px'}" [baseZIndex]="10000"></p-confirmDialog>

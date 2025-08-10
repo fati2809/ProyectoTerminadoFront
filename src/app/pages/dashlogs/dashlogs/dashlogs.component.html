@@ -1,0 +1,96 @@
+<app-header></app-header>
+<h1>DashLogs</h1>
+
+<!-- Mostrar mensaje de límite de tasa -->
+<div *ngIf="rateLimitMessage" class="alert alert-warning">
+  {{ rateLimitMessage }}
+  <button class="close-btn" (click)="clearRateLimitMessage()">×</button>
+</div>
+
+<div class="dashboard">
+  <div class="panel unique-routes">
+    <h3>Rutas Únicas</h3>
+    <div class="big-number">{{ uniqueRoutes }}</div>
+  </div>
+  <div class="panel sessions">
+    <h3>Registros por Día</h3>
+    <canvas baseChart
+            [datasets]="sessionsChartData.datasets"
+            [labels]="sessionsChartLabels"
+            [options]="sessionsChartOptions"
+            [type]="sessionsChartType"></canvas>
+  </div>
+  <div class="panel total-logs">
+    <h3>Total de Registros</h3>
+    <div class="big-number">{{ totalLogs }}</div>
+  </div>
+  <div class="panel method-distribution">
+    <h3>Distribución de Métodos</h3>
+    <canvas baseChart
+            [datasets]="methodChartData.datasets"
+            [labels]="methodChartLabels"
+            [options]="methodChartOptions"
+            [type]="methodChartType"></canvas>
+  </div>
+  <div class="panel status-codes">
+    <h3>Códigos de Estado</h3>
+    <canvas baseChart
+            [datasets]="statusChartData.datasets"
+            [labels]="statusChartLabels"
+            [options]="statusChartOptions"
+            [type]="statusChartType"></canvas>
+  </div>
+  <div class="panel rt-trend">
+    <h3>Tendencia de Tiempo de Respuesta</h3>
+    <canvas baseChart
+            [datasets]="rtChartData.datasets"
+            [labels]="rtChartLabels"
+            [options]="rtChartOptions"
+            [type]="rtChartType"></canvas>
+  </div>
+</div>
+
+<div class="additional-stats">
+  <h3>Estadísticas Adicionales de Registros</h3>
+  <div class="stats-grid">
+    <p-card class="stat-card">
+      <div class="stat-content">
+        <i class="pi pi-clock stat-icon"></i>
+        <h4>Tiempo de Respuesta Promedio</h4>
+        <p class="stat-value">{{ avgResponseTime }} segundos</p>
+      </div>
+    </p-card>
+    <p-card class="stat-card">
+      <div class="stat-content">
+        <i class="pi pi-bolt stat-icon"></i>
+        <h4>Tiempo de Respuesta Más Corto</h4>
+        <p class="stat-value">{{ minResponseTime }} segundos</p>
+      </div>
+    </p-card>
+    <p-card class="stat-card">
+      <div class="stat-content">
+        <i class="pi pi-arrow-up stat-icon"></i>
+        <h4>API Más Consumida</h4>
+        <p class="stat-value">{{ mostConsumedAPI.route }} ({{ mostConsumedAPI.count }} llamadas)</p>
+      </div>
+    </p-card>
+    <p-card class="stat-card">
+      <div class="stat-content">
+        <i class="pi pi-arrow-down stat-icon"></i>
+        <h4>API Menos Consumida</h4>
+        <p class="stat-value">{{ leastConsumedAPI.route }} ({{ leastConsumedAPI.count }} llamadas)</p>
+      </div>
+    </p-card>
+    <p-card class="stat-card status-codes">
+      <div class="stat-content">
+        <i class="pi pi-list stat-icon"></i>
+        <h4>Conteo de Códigos de Estado</h4>
+        <ul class="status-list">
+          <li *ngFor="let status of statusChartLabels" [ngClass]="{'status-success': status === '200', 'status-error': status === '401' || status === '404' || status === '500'}">
+            Estado {{ status }}: {{ statusCounts[status] }} ocurrencias
+          </li>
+        </ul>
+      </div>
+    </p-card>
+  </div>
+</div>

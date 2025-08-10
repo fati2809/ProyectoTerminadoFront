@@ -44,25 +44,25 @@
 
     <!-- Código QR -->
     <div *ngIf="qrCode" class="mt-4">
-      <h3>Escanea este código QR con Google Authenticator</h3>
+      <h3 style="color: rgb(58, 58, 58);">Escanea este código QR con Google Authenticator</h3>
       <img [src]="qrCode" alt="QR Code" style="max-width: 200px;" />
     </div>
 
     <!-- Botones -->
     <ng-template #footer>
-      <div class="login-buttons">
-        <p-button
-          (click)="register()"
-          label="Registrarse"
-          severity="success"
-        ></p-button>
-        <p-button
-          *ngIf="!qrCode"
-          label="Iniciar Sesión"
-          severity="info"
-          routerLink="/auth/login"
-        ></p-button>
-      </div>
-    </ng-template>
+    <div class="login-buttons">
+      <p-button
+        label="Iniciar Sesión"
+        severity="success"
+        (click)="navigateToLogin()"
+      ></p-button>
+      <p-button
+        *ngIf="!qrCode"
+        (click)="register()"
+        label="Regístrate"
+        severity="info"
+      ></p-button>
+    </div>
+  </ng-template>
   </p-card>
 </div>
