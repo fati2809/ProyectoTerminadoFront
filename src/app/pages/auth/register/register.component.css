@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+  background-color: #000000; /* fondo negro sólido */
   padding: 1rem;
   margin: 0;
   border: none;
@@ -19,11 +19,11 @@
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #4FC3F7, #81D4FA);
+  background: linear-gradient(45deg, #9c27b0, #7b1fa2); /* degradado morado */
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(156, 39, 176, 0.7);
   transition: transform 0.3s ease;
 }
 
@@ -39,7 +39,7 @@
 .login-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #212121;
+  color: #d1c4e9; /* morado claro */
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -54,70 +54,74 @@
 .label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #424242;
+  color: #b39ddb; /* morado suave */
   margin-bottom: 0.25rem;
   text-align: left;
 }
 
 .input-modern {
-  border: none;
+  border: 1px solid #9c27b0; /* borde morado */
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #212121;
+  background-color: #1a1a1a; /* fondo oscuro */
+  color: #e0e0e0;
   padding: 0.75rem;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-modern::placeholder {
-  color: rgba(0, 0, 0, 0.5);
+  color: #9c27b0aa;
 }
 
 .input-modern:focus {
-  background-color: #ffffff;
-  box-shadow: 0 0 8px rgba(79, 195, 247, 0.5);
+  background-color: #2a2a2a;
+  box-shadow: 0 0 8px #9c27b0cc;
   outline: none;
+  border-color: #d05ce3;
 }
 
-
 :host ::ng-deep .p-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(5px);
+  background: #121212; /* fondo muy oscuro */
+  backdrop-filter: none;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 3px solid #9c27b0 !important; /* borde morado */
+  box-shadow: 0 8px 32px rgba(156, 39, 176, 0.7) !important;
   padding: 1.5rem;
   max-width: 400px;
   width: 100%;
+  color: #e0e0e0;
 }
 
 :host ::ng-deep .p-inputgroup-addon {
-  background: rgba(255, 255, 255, 0.8);
-  color: #212121;
-  border: none;
+  background: #1a1a1a;
+  color: #9c27b0;
+  border: 1px solid #9c27b0;
   border-radius: 8px 0 0 8px;
 }
 
 /* Estilos personalizados para p-toast */
 :host ::ng-deep .p-toast {
-  opacity: 0.95;
+  opacity: 1;
   z-index: 1000;
 }
 
 :host ::ng-deep .p-toast-message {
   border-radius: 12px;
-  backdrop-filter: blur(5px);
-  background: rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  color: #212121 !important;
+  background: #1a1a1a !important;
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.7);
+  color: #d1c4e9 !important;
   padding: 1rem;
   margin-bottom: 1rem;
+  border: 2px solid #9c27b0 !important;
 }
 
 :host ::ng-deep .p-toast-message-error {
-  border: 2px solid #EF5350 !important;
+  border-color: #EF5350 !important;
+  color: #ef9a9a !important;
 }
 
 :host ::ng-deep .p-toast-message-success {
-  border: 2px solid #66BB6A !important;
+  border-color: #66BB6A !important;
+  color: #a5d6a7 !important;
 }
 
 :host ::ng-deep .p-toast-message .p-toast-message-content {
@@ -129,17 +133,17 @@
 :host ::ng-deep .p-toast-message .p-toast-message-text .p-toast-summary {
   font-weight: 600;
   font-size: 1.1rem;
-  color: #212121;
+  color: #d1c4e9;
 }
 
 :host ::ng-deep .p-toast-message .p-toast-message-text .p-toast-detail {
   font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.7);
+  color: #b39ddb;
 }
 
 :host ::ng-deep .p-toast-message .p-toast-message-icon {
   font-size: 1.5rem;
-  color: #212121;
+  color: #d1c4e9;
 }
 
 :host ::ng-deep .p-toast-message-error .p-toast-message-icon {
@@ -156,4 +160,32 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
+}
+
+/* Botones con borde morado, fondo transparente */
+:host ::ng-deep .p-button {
+  background-color: transparent !important;
+  color: #9c27b0 !important; /* texto morado */
+  border: 2px solid #9c27b0 !important;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Al hacer hover, fondo morado suave, texto blanco */
+:host ::ng-deep .p-button:hover {
+  background-color: rgba(156, 39, 176, 0.15) !important;
+  color: #7b1fa2 !important;
+  border-color: #7b1fa2 !important;
+  box-shadow: 0 0 8px rgba(156, 39, 176, 0.4);
+}
+
+/* Si hay botones deshabilitados */
+:host ::ng-deep .p-button:disabled,
+:host ::ng-deep .p-button.p-disabled {
+  background-color: transparent !important;
+  color: #5e35b1 !important;
+  border-color: #5e35b1 !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none !important;
 }

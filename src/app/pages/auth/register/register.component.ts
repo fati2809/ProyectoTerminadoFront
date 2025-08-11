@@ -54,7 +54,7 @@ export class RegisterComponent {
   ) {}
 
   register() {
-    if (!this.username || !this.password || !this.confirmPassword) {
+    if (!this.username.trim() || !this.password || !this.confirmPassword) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
@@ -75,10 +75,11 @@ export class RegisterComponent {
     }
 
     const userData: Usuario & { status: string } = {
-      username: this.username,
+      username: this.username.trim(),
       password: this.password,
       status: '1'
     };
+
     this.authService.register(userData).subscribe({
       next: (response: RespuestaAutenticacion) => {
         if (response.statusCode === 201) {
@@ -89,7 +90,6 @@ export class RegisterComponent {
             detail: 'Usuario registrado exitosamente. Escanea el código QR con Google Authenticator.',
             life: 5000
           });
-          // No redirigir inmediatamente para permitir escanear el QR
         } else {
           this.messageService.add({
             severity: 'error',

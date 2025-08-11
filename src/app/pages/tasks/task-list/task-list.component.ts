@@ -46,7 +46,7 @@ export class TaskListComponent implements OnInit {
   kanbanColumns: any[] = [];
   displayDialog: boolean = false;
   editMode: boolean = false;
-  rateLimitMessage: string | null = null; // Nueva variable para el mensaje de límite
+  rateLimitMessage: string | null = null;
   newTask: Task = {
     _id: undefined,
     name: '',
@@ -82,7 +82,7 @@ export class TaskListComponent implements OnInit {
         next: (res) => {
           this.tasks = res.intData?.data ?? [];
           this.setKanbanColumns();
-          this.rateLimitMessage = null; // Limpiar mensaje de error si la petición es exitosa
+          this.rateLimitMessage = null;
         },
         error: (err) => {
           console.error('Error al obtener tareas:', err);
@@ -118,7 +118,7 @@ export class TaskListComponent implements OnInit {
     this.taskService.updateTask(task).subscribe({
       next: (res) => {
         console.log('Tarea actualizada:', res);
-        this.rateLimitMessage = null; // Limpiar mensaje de error
+        this.rateLimitMessage = null;
       },
       error: (err) => {
         console.error('Error al actualizar la tarea:', err);
@@ -141,9 +141,6 @@ export class TaskListComponent implements OnInit {
       rejectLabel: 'No',
       accept: () => {
         this.deleteTask(taskId);
-      },
-      reject: () => {
-        // No hacer nada si se rechaza
       }
     });
   }
@@ -154,7 +151,7 @@ export class TaskListComponent implements OnInit {
         console.log('Tarea eliminada:', res);
         this.tasks = this.tasks.filter(t => String(t._id) !== String(taskId));
         this.setKanbanColumns();
-        this.rateLimitMessage = null; // Limpiar mensaje de error
+        this.rateLimitMessage = null;
       },
       error: (err) => {
         console.error('Error al eliminar la tarea:', err);
@@ -180,14 +177,14 @@ export class TaskListComponent implements OnInit {
       is_alive: true
     };
     this.displayDialog = true;
-    this.rateLimitMessage = null; // Limpiar mensaje de error
+    this.rateLimitMessage = null;
   }
 
   editTask(task: Task) {
     this.editMode = true;
     this.newTask = { ...task };
     this.displayDialog = true;
-    this.rateLimitMessage = null; // Limpiar mensaje de error
+    this.rateLimitMessage = null;
   }
 
   private formatDate(date: any): string {
@@ -200,73 +197,76 @@ export class TaskListComponent implements OnInit {
   }
 
   saveTask() {
-    if (!this.newTask.name || !this.newTask.description || !this.newTask.dead_line) {
+    if (!this.newTask.name?.trim() || !this.newTask.description?.trim() || !this.newTask.dead_line) {
       this.rateLimitMessage = 'Faltan campos requeridos: nombre, descripción o fecha límite.';
       return;
     }
 
+    // Formatear fechas
     this.newTask.dead_line = this.formatDate(this.newTask.dead_line);
     this.newTask.created_at = this.formatDate(this.newTask.created_at);
 
+    // Preparar objeto limpio
+    const taskToSend: Task = {
+      ...this.newTask,
+      name: this.newTask.name.trim(),
+      description: this.newTask.description.trim(),
+      created_by: (this.newTask.created_by || '').trim(),
+      status: this.newTask.status || 'incomplete',
+      is_alive: this.newTask.is_alive !== undefined ? this.newTask.is_alive : true
+    };
+
     if (this.editMode) {
-      this.taskService.updateTask(this.newTask).subscribe({
+      this.taskService.updateTask(taskToSend).subscribe({
         next: (res) => {
           console.log('Tarea editada:', res);
-          this.taskService.getTasksByUser(this.newTask.created_by).subscribe({
+          this.taskService.getTasksByUser(taskToSend.created_by).subscribe({
             next: (res) => {
               this.tasks = res.intData?.data ?? [];
               this.setKanbanColumns();
               this.displayDialog = false;
               this.editMode = false;
-              this.rateLimitMessage = null; // Limpiar mensaje de error
+              this.rateLimitMessage = null;
             },
             error: (err) => {
               console.error('Error al actualizar la lista de tareas:', err);
-              if (err.status === 429) {
-                this.rateLimitMessage = err.error.message || 'Has alcanzado el límite de peticiones. Por favor, intenta de nuevo más tarde.';
-              } else {
-                this.rateLimitMessage = 'Ocurrió un error al actualizar la lista de tareas. Por favor, intenta de nuevo.';
-              }
+              this.rateLimitMessage = err.status === 429
+                ? err.error.message || 'Has alcanzado el límite de peticiones. Intenta más tarde.'
+                : 'Error al actualizar la lista de tareas. Intenta de nuevo.';
             }
           });
         },
         error: (err) => {
           console.error('Error al editar la tarea:', err);
-          if (err.status === 429) {
-            this.rateLimitMessage = err.error.message || 'Has alcanzado el límite de peticiones. Por favor, intenta de nuevo más tarde.';
-          } else {
-            this.rateLimitMessage = 'Ocurrió un error al editar la tarea. Por favor, intenta de nuevo.';
-          }
+          this.rateLimitMessage = err.status === 429
+            ? err.error.message || 'Has alcanzado el límite de peticiones. Intenta más tarde.'
+            : 'Error al editar la tarea. Intenta de nuevo.';
         }
       });
     } else {
-      this.taskService.registerTask(this.newTask).subscribe({
+      this.taskService.registerTask(taskToSend).subscribe({
         next: (res) => {
           console.log('Tarea registrada:', res);
-          this.taskService.getTasksByUser(this.newTask.created_by).subscribe({
+          this.taskService.getTasksByUser(taskToSend.created_by).subscribe({
             next: (res) => {
               this.tasks = res.intData?.data ?? [];
               this.setKanbanColumns();
               this.displayDialog = false;
-              this.rateLimitMessage = null; // Limpiar mensaje de error
+              this.rateLimitMessage = null;
             },
             error: (err) => {
               console.error('Error al actualizar la lista de tareas:', err);
-              if (err.status === 429) {
-                this.rateLimitMessage = err.error.message || 'Has alcanzado el límite de peticiones. Por favor, intenta de nuevo más tarde.';
-              } else {
-                this.rateLimitMessage = 'Ocurrió un error al actualizar la lista de tareas. Por favor, intenta de nuevo.';
-              }
+              this.rateLimitMessage = err.status === 429
+                ? err.error.message || 'Has alcanzado el límite de peticiones. Intenta más tarde.'
+                : 'Error al actualizar la lista de tareas. Intenta de nuevo.';
             }
           });
         },
         error: (err) => {
           console.error('Error al registrar la tarea:', err);
-          if (err.status === 429) {
-            this.rateLimitMessage = err.error.message || 'Has alcanzado el límite de peticiones. Por favor, intenta de nuevo más tarde.';
-          } else {
-            this.rateLimitMessage = 'Ocurrió un error al registrar la tarea. Por favor, intenta de nuevo.';
-          }
+          this.rateLimitMessage = err.status === 429
+            ? err.error.message || 'Has alcanzado el límite de peticiones. Intenta más tarde.'
+            : 'Error al registrar la tarea. Intenta de nuevo.';
         }
       });
     }
@@ -275,11 +275,11 @@ export class TaskListComponent implements OnInit {
   cancelTask() {
     this.displayDialog = false;
     this.editMode = false;
-    this.rateLimitMessage = null; // Limpiar mensaje de error
+    this.rateLimitMessage = null;
   }
 
   clearRateLimitMessage() {
-    this.rateLimitMessage = null; // Método para limpiar el mensaje
+    this.rateLimitMessage = null;
   }
 
   setKanbanColumns() {
@@ -313,13 +313,14 @@ export class TaskListComponent implements OnInit {
   }
 
   getColumnColor(status: string): string {
-    switch (status) {
-      case 'incomplete': return '#0288D1';
-      case 'inprogress': return '#F57C00';
-      case 'paused': return '#FFCA28';
-      case 'revision': return '#1976D2';
-      case 'done': return '#4CAF50';
-      default: return '#424242';
-    }
+  switch(status) {
+    case 'incomplete': return '#0288D1';  // azul
+    case 'inprogress': return '#F57C00';  // naranja
+    case 'paused': return '#FFCA28';      // amarillo
+    case 'revision': return '#1976D2';    // azul oscuro
+    case 'done': return '#4CAF50';        // verde
+    default: return '#424242';             // gris oscuro
   }
+}
+
 }

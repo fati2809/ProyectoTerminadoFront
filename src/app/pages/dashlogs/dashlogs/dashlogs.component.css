@@ -20,6 +20,8 @@ h1 {
   padding: 15px;
   border-radius: 8px;
   text-align: center;
+  border: 2px solid #9c27b0; /* borde morado */
+  box-shadow: 0 0 10px rgba(156, 39, 176, 0.5); /* sombra morada suave */
 }
 
 .big-number {
@@ -39,6 +41,10 @@ canvas {
   width: 100% !important;
   height: 200px !important;
   margin: 0 auto;
+  border: none; /* sin borde */
+  box-shadow: none; /* sin sombra */
+  background-color: #1e1e1e; /* fondo oscuro para que resalte */
+  border-radius: 4px;
 }
 
 .additional-stats {

@@ -1,0 +1,23 @@
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Título a la izquierda, menú a la derecha */
+  padding: 10px 20px;
+  background-color: #000000; /* Fondo negro puro */
+  color: white;
+  border-bottom: 1px solid #000;
+  height: 60px;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.menubar-container {
+  display: flex;
+  justify-content: flex-end; /* Empuja el menú a la derecha */
+  padding: 10px 20px; /* Espaciado opcional */
+  background-color: #000000; /* Fondo negro puro */
+}

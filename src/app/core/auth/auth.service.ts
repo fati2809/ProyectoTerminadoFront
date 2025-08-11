@@ -32,26 +32,33 @@ export class AuthService {
   }
 
   setToken(token: string) {
-    localStorage.setItem('access_token', token); // Cambia a access_token para claridad
-    this.accessTokenSubject.next(token);
+    if (this.isBrowser()) {
+      localStorage.setItem('access_token', token);
+      this.accessTokenSubject.next(token);
+    }
   }
 
   getToken(): string | null {
-    return localStorage.getItem('access_token');
+    if (this.isBrowser()) {
+      return localStorage.getItem('access_token');
+    }
+    return null;
   }
 
   logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('username');
-    this.accessTokenSubject.next(null);
+    if (this.isBrowser()) {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('username');
+      this.accessTokenSubject.next(null);
+    }
   }
 
   // Decodificación manual del token JWT
   private decodeToken(token: string): JwtPayload | null {
     try {
-      const payloadBase64 = token.split('.')[1]; // Extrae el payload
-      const decodedPayload = atob(payloadBase64); // Decodifica Base64
-      return JSON.parse(decodedPayload); // Parsea el JSON
+      const payloadBase64 = token.split('.')[1];
+      const decodedPayload = atob(payloadBase64);
+      return JSON.parse(decodedPayload);
     } catch (e) {
       console.error('Error decodificando token:', e);
       return null;
@@ -61,21 +68,26 @@ export class AuthService {
   isTokenExpired(token: string): boolean {
     const decoded = this.decodeToken(token);
     if (!decoded || !decoded.exp) {
-      return true; // Si no se puede decodificar o no hay exp, considerarlo expirado
+      return true;
     }
-    const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
+    const currentTime = Math.floor(Date.now() / 1000);
     return decoded.exp < currentTime;
   }
 
   checkTokenValidity() {
     const token = this.getToken();
     if (token && this.isTokenExpired(token)) {
-      this.logout(); // Expira la sesión si el token está vencido
+      this.logout();
     }
   }
 
   isLoggedIn(): boolean {
     const token = this.getToken();
     return !!token && !this.isTokenExpired(token);
+  }
+
+  // Verifica si el código está corriendo en el navegador
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 }

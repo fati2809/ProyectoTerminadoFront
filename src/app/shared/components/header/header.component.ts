@@ -26,12 +26,9 @@ export class HeaderComponent {
       badge: '2',
       command: () => this.router.navigate(['/tasks/task-list'])
     },
+  
     {
-      label: 'Tareas',
-      command: () => this.router.navigate(['/tasks/task-list'])
-    },
-    {
-      label: 'DashLogs',
+      label: 'Graficas',
       command: () => this.router.navigate(['/dashlogs'])
     },
     {
