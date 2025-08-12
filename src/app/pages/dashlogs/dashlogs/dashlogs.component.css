@@ -1,15 +1,16 @@
 .dash-container {
   padding: 1rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #000;
-  color: #333;
+  background-color: #fff; /* blanco para todo el contenedor */
+  color: #222;
   min-height: 100vh;
 }
 
+/* Mensaje de límite de tasa */
 .rate-limit-msg {
-  background-color: #000;
+  background-color: #f8d7da;
   color: #721c24;
-  border: 1px solid #000;
+  border: 1px solid #f5c6cb;
   padding: 1rem;
   border-radius: 6px;
   margin: 1rem auto;
@@ -21,7 +22,7 @@
   margin-top: 0.5rem;
   padding: 0.3rem 1rem;
   background-color: #721c24;
-  color: #000;
+  color: #fff;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -31,6 +32,7 @@
   background-color: #501217;
 }
 
+/* Estilos para las tarjetas estadísticas */
 .stats-cards {
   display: flex;
   flex-wrap: wrap;
@@ -39,7 +41,7 @@
   justify-content: center;
 }
 
-.stat-card {
+.stats-cards p-card {
   flex: 1 1 160px;
   min-width: 150px;
   text-align: center;
@@ -47,6 +49,7 @@
   color: #444;
 }
 
+/* Contenedor y estilos específicos para las gráficas */
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -54,20 +57,21 @@
 }
 
 .chart-card {
-  background: #000;
+  background: #fff;
   border-radius: 10px;
   padding: 1rem 1.5rem;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
 .chart-card h3 {
   margin-bottom: 1rem;
   font-weight: 600;
   color: #222;
-  text-align: center;
 }
 
-canvas {
+/* Solo los canvas dentro de .charts-grid se verán afectados */
+.charts-grid canvas {
   width: 100% !important;
   height: 280px !important;
 }
