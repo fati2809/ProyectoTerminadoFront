@@ -4,8 +4,7 @@ import { Chart, ChartConfiguration, ChartData, ChartType, registerables } from '
 import { LogService } from './dashlogs.service';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { CommonModule } from '@angular/common';
-import { CardModule } from 'primeng/card'; // Importar CardModule
-import { IconFieldModule } from 'primeng/iconfield'; // Importar IconFieldModule para íconos
+import { CardModule } from 'primeng/card';
 
 Chart.register(...registerables);
 
@@ -27,8 +26,7 @@ interface Log {
     BaseChartDirective,
     CommonModule,
     HeaderComponent,
-    CardModule, // Agregar CardModule
-    IconFieldModule // Agregar IconFieldModule
+    CardModule
   ],
   templateUrl: './dashlogs.component.html',
   styleUrls: ['./dashlogs.component.css']
@@ -47,34 +45,53 @@ export class DashLogsComponent implements OnInit {
   methodCounts: { [key: string]: number } = {};
   rateLimitMessage: string | null = null;
 
-  public sessionsChartType: ChartType = 'bar';
-  public sessionsChartData: ChartData<'bar'> = { datasets: [] };
+  // Cambié tipos de gráficas para variar el diseño
+  public sessionsChartType: ChartType = 'line'; // línea para registros por día
+  public sessionsChartData: ChartData<'line'> = { datasets: [] };
   public sessionsChartLabels: string[] = [];
   public sessionsChartOptions: ChartConfiguration['options'] = {
-    scales: { y: { beginAtZero: true } }
+    responsive: true,
+    scales: {
+      y: { beginAtZero: true, ticks: { color: '#555' }, grid: { color: '#eee' } },
+      x: { ticks: { color: '#555' }, grid: { color: '#eee' } }
+    },
+    plugins: { legend: { display: false }, tooltip: { enabled: true } },
+    elements: { line: { borderColor: '#4a90e2', borderWidth: 2, fill: true, backgroundColor: 'rgba(74, 144, 226, 0.2)' }, point: { radius: 3 } }
   };
 
-  public methodChartType: ChartType = 'bar';
-  public methodChartData: ChartData<'bar'> = { datasets: [] };
+  public methodChartType: ChartType = 'pie'; // pie para métodos
+  public methodChartData: ChartData<'pie'> = { datasets: [], labels: [] };
   public methodChartLabels: string[] = [];
   public methodChartOptions: ChartConfiguration['options'] = {
-    indexAxis: 'y',
-    scales: { x: { beginAtZero: true } }
+    responsive: true,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#555' } },
+      tooltip: { enabled: true }
+    }
   };
 
-  public statusChartType: ChartType = 'bar';
-  public statusChartData: ChartData<'bar'> = { datasets: [] };
+  public statusChartType: ChartType = 'doughnut'; // doughnut para status codes
+  public statusChartData: ChartData<'doughnut'> = { datasets: [], labels: ['200', '401', '404', '500'] };
   public statusChartLabels: string[] = ['200', '401', '404', '500'];
   public statusChartOptions: ChartConfiguration['options'] = {
-    scales: { y: { beginAtZero: true } }
+    responsive: true,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#555' } },
+      tooltip: { enabled: true }
+    }
   };
 
-  public rtChartType: ChartType = 'line';
-  public rtChartData: ChartData<'line'> = { datasets: [] };
+  public rtChartType: ChartType = 'bar'; // barra para tendencia RT
+  public rtChartData: ChartData<'bar'> = { datasets: [] };
   public rtChartLabels: string[] = [];
   public rtChartOptions: ChartConfiguration['options'] = {
-    elements: { line: { fill: true } },
-    scales: { y: { beginAtZero: true } }
+    responsive: true,
+    scales: {
+      y: { beginAtZero: true, ticks: { color: '#555' }, grid: { color: '#eee' } },
+      x: { ticks: { color: '#555' }, grid: { color: '#eee' } }
+    },
+    plugins: { legend: { display: false }, tooltip: { enabled: true } },
+    elements: { bar: { backgroundColor: '#f39c12', borderRadius: 4, borderSkipped: false } }
   };
 
   constructor(private logService: LogService) {}
@@ -143,6 +160,7 @@ export class DashLogsComponent implements OnInit {
   }
 
   private prepareCharts() {
+    // Línea para registros por día
     const dayCounts: { [day: string]: number } = {};
     for (const log of this.logs) {
       const day = log.timestamp.split(' ')[0];
@@ -150,30 +168,40 @@ export class DashLogsComponent implements OnInit {
     }
     this.sessionsChartLabels = Object.keys(dayCounts).sort();
     this.sessionsChartData = {
+      labels: this.sessionsChartLabels,
       datasets: [{
         data: this.sessionsChartLabels.map(d => dayCounts[d]),
         label: 'Registros por Día',
-        backgroundColor: 'yellow'
+        borderColor: '#4a90e2',
+        backgroundColor: 'rgba(74, 144, 226, 0.2)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3
       }]
     };
 
+    // Pie para métodos
     this.methodChartLabels = Object.keys(this.methodCounts);
     this.methodChartData = {
+      labels: this.methodChartLabels,
       datasets: [{
         data: Object.values(this.methodCounts),
-        label: 'Métodos',
-        backgroundColor: 'cyan'
+        backgroundColor: ['#e67e22', '#3498db', '#2ecc71', '#9b59b6', '#34495e'],
+        hoverOffset: 10
       }]
     };
 
+    // Doughnut para status
     this.statusChartData = {
+      labels: this.statusChartLabels,
       datasets: [{
         data: this.statusChartLabels.map(status => this.statusCounts[status] || 0),
-        label: 'Códigos de Estado',
-        backgroundColor: 'blue'
+        backgroundColor: ['#2ecc71', '#f1c40f', '#e74c3c', '#34495e'],
+        hoverOffset: 15
       }]
     };
 
+    // Bar para tendencia RT
     const dayRT: { [day: string]: { sum: number, count: number } } = {};
     for (const log of this.logs) {
       const day = log.timestamp.split(' ')[0];
@@ -184,12 +212,12 @@ export class DashLogsComponent implements OnInit {
     const sortedDays = Object.keys(dayRT).sort();
     this.rtChartLabels = sortedDays;
     this.rtChartData = {
+      labels: this.rtChartLabels,
       datasets: [{
         data: sortedDays.map(d => dayRT[d].sum / dayRT[d].count),
         label: 'Tiempo de Respuesta Promedio por Día',
-        borderColor: 'yellow',
-        backgroundColor: 'rgba(255, 255, 0, 0.3)',
-        fill: true
+        backgroundColor: '#f39c12',
+        borderRadius: 4
       }]
     };
   }
