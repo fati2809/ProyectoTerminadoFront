@@ -19,69 +19,17 @@ h1 {
   font-weight: 700;
 }
 
-/* Dashboard con efecto glass y grid adaptable */
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  background: rgba(25, 25, 30, 0.6);
-  backdrop-filter: blur(12px);
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-}
-
-/* Paneles con borde tenue y hover suave */
-.panel {
-  background: rgba(20, 20, 25, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.panel:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-}
-
-/* Número grande y elegante */
-.big-number {
-  font-size: 46px;
-  font-weight: 800;
-  margin: 15px 0;
-  color: #76c7ff;
-}
-
-/* Subtítulos */
-h3 {
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #aaa;
-}
-
-/* Canvas con integración minimalista */
-canvas {
-  width: 100% !important;
-  height: 200px !important;
-  border-radius: 8px;
-  background-color: #111217;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-/* Sección de estadísticas */
+/* ===== ESTADÍSTICAS AL INICIO ===== */
 .additional-stats {
-  margin-top: 30px;
+  margin: 25px auto;
   padding: 25px;
   background: rgba(30, 30, 35, 0.85);
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Título stats */
 .additional-stats h3 {
-  font-size: 19px;
+  font-size: 20px;
   margin-bottom: 20px;
   text-align: center;
   color: #b69cff;
@@ -94,36 +42,32 @@ canvas {
   gap: 20px;
 }
 
-/* Tarjetas minimal con efecto hover */
+/* Tarjetas minimalistas */
 .stat-card {
   background: rgba(25, 25, 30, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 18px;
   text-align: center;
-  transition: transform 0.25s ease, background 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border 0.25s ease;
 }
 
 .stat-card:hover {
   transform: scale(1.04);
   background: rgba(118, 199, 255, 0.06);
-}
-
-.stat-icon {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: #76c7ff;
+  border-color: rgba(118, 199, 255, 0.4);
 }
 
 .stat-content h4 {
   font-size: 15px;
   margin: 4px 0;
+  color: #bbb;
 }
 
 .stat-value {
   font-size: 17px;
   font-weight: bold;
-  color: #b69cff;
+  color: #76c7ff;
 }
 
 /* Lista de estados */
@@ -140,6 +84,61 @@ canvas {
   color: #ff5c5c;
 }
 
+/* ===== DASHBOARD DE GRÁFICAS ===== */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  background: rgba(25, 25, 30, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Paneles con estilo */
+.panel {
+  background: rgba(20, 20, 25, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+}
+
+.panel:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  border-color: rgba(118, 199, 255, 0.4);
+}
+
+/* Títulos de paneles */
+h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #aaa;
+}
+
+/* Números grandes */
+.big-number {
+  font-size: 46px;
+  font-weight: 800;
+  margin: 15px 0;
+  color: #76c7ff;
+}
+
+/* Canvas (gráficas) */
+canvas {
+  width: 100% !important;
+  height: 220px !important;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(17, 18, 23, 0.9), rgba(10, 10, 14, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
 /* Alertas */
 .alert {
   padding: 15px;
@@ -147,6 +146,7 @@ canvas {
   background: rgba(255, 210, 100, 0.08);
   border: 1px solid rgba(255, 210, 100, 0.25);
   color: #ffd264;
+  position: relative;
 }
 
 .close-btn {

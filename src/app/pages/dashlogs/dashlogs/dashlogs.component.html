@@ -7,94 +7,36 @@
   <button class="close-btn" (click)="clearRateLimitMessage()">×</button>
 </div>
 
-<div class="dashboard">
-  <!-- 1: Registros por Día -->
-  <div class="panel sessions">
-    <h3>Registros por Día</h3>
-    <canvas baseChart
-            [datasets]="sessionsChartData.datasets"
-            [labels]="sessionsChartLabels"
-            [options]="sessionsChartOptions"
-            [type]="sessionsChartType"></canvas>
-  </div>
-
-  <!-- 2: Códigos de Estado -->
-  <div class="panel status-codes">
-    <h3>Códigos de Estado</h3>
-    <canvas baseChart
-            [datasets]="statusChartData.datasets"
-            [labels]="statusChartLabels"
-            [options]="statusChartOptions"
-            [type]="statusChartType"></canvas>
-  </div>
-
-  <!-- 3: Rutas Únicas -->
-  <div class="panel unique-routes">
-    <h3>Rutas Únicas</h3>
-    <div class="big-number">{{ uniqueRoutes }}</div>
-  </div>
-
-  <!-- 4: Tendencia de Tiempo de Respuesta -->
-  <div class="panel rt-trend">
-    <h3>Tendencia de Tiempo de Respuesta</h3>
-    <canvas baseChart
-            [datasets]="rtChartData.datasets"
-            [labels]="rtChartLabels"
-            [options]="rtChartOptions"
-            [type]="rtChartType"></canvas>
-  </div>
-
-  <!-- 5: Total de Registros -->
-  <div class="panel total-logs">
-    <h3>Total de Registros</h3>
-    <div class="big-number">{{ totalLogs }}</div>
-  </div>
-
-  <!-- 6: Distribución de Métodos -->
-  <div class="panel method-distribution">
-    <h3>Distribución de Métodos</h3>
-    <canvas baseChart
-            [datasets]="methodChartData.datasets"
-            [labels]="methodChartLabels"
-            [options]="methodChartOptions"
-            [type]="methodChartType"></canvas>
-  </div>
-</div>
-
+<!-- Sección de estadísticas (Ahora al inicio) -->
 <div class="additional-stats">
   <h3>Estadísticas Adicionales de Registros</h3>
   <div class="stats-grid">
     <p-card class="stat-card">
       <div class="stat-content">
-        <i class="pi pi-clock stat-icon"></i>
         <h4>Tiempo de Respuesta Promedio</h4>
         <p class="stat-value">{{ avgResponseTime }} segundos</p>
       </div>
     </p-card>
     <p-card class="stat-card">
       <div class="stat-content">
-        <i class="pi pi-bolt stat-icon"></i>
         <h4>Tiempo de Respuesta Más Corto</h4>
         <p class="stat-value">{{ minResponseTime }} segundos</p>
       </div>
     </p-card>
     <p-card class="stat-card">
       <div class="stat-content">
-        <i class="pi pi-arrow-up stat-icon"></i>
         <h4>API Más Consumida</h4>
         <p class="stat-value">{{ mostConsumedAPI.route }} ({{ mostConsumedAPI.count }} llamadas)</p>
       </div>
     </p-card>
     <p-card class="stat-card">
       <div class="stat-content">
-        <i class="pi pi-arrow-down stat-icon"></i>
         <h4>API Menos Consumida</h4>
         <p class="stat-value">{{ leastConsumedAPI.route }} ({{ leastConsumedAPI.count }} llamadas)</p>
       </div>
     </p-card>
     <p-card class="stat-card status-codes">
       <div class="stat-content">
-        <i class="pi pi-list stat-icon"></i>
         <h4>Conteo de Códigos de Estado</h4>
         <ul class="status-list">
           <li *ngFor="let status of statusChartLabels" 
@@ -107,5 +49,54 @@
         </ul>
       </div>
     </p-card>
+  </div>
+</div>
+
+<!-- Dashboard de gráficas -->
+<div class="dashboard">
+  <div class="panel sessions">
+    <h3>Registros por Día</h3>
+    <canvas baseChart
+            [datasets]="sessionsChartData.datasets"
+            [labels]="sessionsChartLabels"
+            [options]="sessionsChartOptions"
+            [type]="sessionsChartType"></canvas>
+  </div>
+
+  <div class="panel status-codes">
+    <h3>Códigos de Estado</h3>
+    <canvas baseChart
+            [datasets]="statusChartData.datasets"
+            [labels]="statusChartLabels"
+            [options]="statusChartOptions"
+            [type]="statusChartType"></canvas>
+  </div>
+
+  <div class="panel unique-routes">
+    <h3>Rutas Únicas</h3>
+    <div class="big-number">{{ uniqueRoutes }}</div>
+  </div>
+
+  <div class="panel rt-trend">
+    <h3>Tendencia de Tiempo de Respuesta</h3>
+    <canvas baseChart
+            [datasets]="rtChartData.datasets"
+            [labels]="rtChartLabels"
+            [options]="rtChartOptions"
+            [type]="rtChartType"></canvas>
+  </div>
+
+  <div class="panel total-logs">
+    <h3>Total de Registros</h3>
+    <div class="big-number">{{ totalLogs }}</div>
+  </div>
+
+  <div class="panel method-distribution">
+    <h3>Distribución de Métodos</h3>
+    <canvas baseChart
+            [datasets]="methodChartData.datasets"
+            [labels]="methodChartLabels"
+            [options]="methodChartOptions"
+            [type]="methodChartType"></canvas>
   </div>
 </div>
