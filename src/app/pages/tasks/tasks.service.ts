@@ -8,7 +8,7 @@ import { Task, RespuestaTareas } from '../../core/models/task.model';
 })
 export class TaskService {
 
-  private apiUrl = 'https://tareaseguridad.herokuapp.com/task';
+  private apiUrl = 'https://tareaseguridad-9f63773203f2.herokuapp.com/task';
 
 
   constructor(private http: HttpClient) {}
