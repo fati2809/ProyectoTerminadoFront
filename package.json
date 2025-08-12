@@ -2,12 +2,12 @@
   "name": "gui",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+   "ng": "ng",
+    "start": "npx http-server ./dist/proyectofront -p $PORT",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:gui": "node dist/gui/server/server.mjs",
-    "build": "ng build --configuration production",
-    "start": "npx http-server ./dist/proyectofront -p $PORT"
+    "serve:ssr:gui": "node dist/gui/server/server.mjs"
 },
   "private": true,
   "dependencies": {

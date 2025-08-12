@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Usuario, RespuestaAutenticacion } from '../models/user.model';
+import { environment } from '../../../enviroments/enviroment';
 
 interface JwtPayload {
   exp: number;
@@ -14,7 +15,7 @@ interface JwtPayload {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://158.69.197.251:5000/auth';
+  private apiUrl = environment.apiUrl;
   private accessTokenSubject = new BehaviorSubject<string | null>(this.getToken());
   public accessToken$ = this.accessTokenSubject.asObservable();
 
