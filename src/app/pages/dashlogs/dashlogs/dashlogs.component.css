@@ -1,90 +1,90 @@
-/* ==== ESTILO DRÁSTICO DARK MODE ==== */
+/* ==== DARK MODE ELEGANTE Y MODERNO ==== */
 body {
-  background-color: #0d0d0d;
-  font-family: 'Poppins', sans-serif;
-  color: #f5f5f5;
+  background-color: #0b0b0d;
+  font-family: 'Inter', sans-serif;
+  color: #eaeaea;
   margin: 0;
   padding: 0;
 }
 
-/* Título principal con efecto neón */
+/* Título principal sobrio y llamativo */
 h1 {
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.8rem;
   margin: 2rem 0;
-  color: #00ffe0;
-  text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
-  letter-spacing: 2px;
+  background: linear-gradient(90deg, #76c7ff, #b69cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1.5px;
+  font-weight: 700;
 }
 
-/* Dashboard con efecto glass y sombra */
+/* Dashboard con efecto glass y grid adaptable */
 .dashboard {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
-  background: rgba(20, 20, 20, 0.7);
-  backdrop-filter: blur(8px);
+  background: rgba(25, 25, 30, 0.6);
+  backdrop-filter: blur(12px);
   padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 30px rgba(0, 255, 224, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-/* Paneles con bordes brillantes */
+/* Paneles con borde tenue y hover suave */
 .panel {
-  background: rgba(15, 15, 15, 0.85);
-  border: 1px solid rgba(0, 255, 224, 0.4);
+  background: rgba(20, 20, 25, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 20px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .panel:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 20px rgba(0, 255, 224, 0.5);
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
-/* Número grande y llamativo */
+/* Número grande y elegante */
 .big-number {
-  font-size: 50px;
-  font-weight: 900;
+  font-size: 46px;
+  font-weight: 800;
   margin: 15px 0;
-  color: #ff4b91;
-  text-shadow: 0 0 8px #ff4b91;
+  color: #76c7ff;
 }
 
 /* Subtítulos */
 h3 {
-  font-size: 14px;
+  font-size: 15px;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #ccc;
+  letter-spacing: 1px;
+  color: #aaa;
 }
 
-/* Canvas más integrado */
+/* Canvas con integración minimalista */
 canvas {
   width: 100% !important;
   height: 200px !important;
   border-radius: 8px;
-  background-color: #111;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: #111217;
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 /* Sección de estadísticas */
 .additional-stats {
   margin-top: 30px;
   padding: 25px;
-  background: rgba(25, 25, 25, 0.85);
+  background: rgba(30, 30, 35, 0.85);
   border-radius: 12px;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.03);
 }
 
+/* Título stats */
 .additional-stats h3 {
-  font-size: 20px;
+  font-size: 19px;
   margin-bottom: 20px;
   text-align: center;
-  color: #00ffe0;
-  text-shadow: 0 0 5px #00ffe0;
+  color: #b69cff;
 }
 
 /* Grid para stats */
@@ -94,59 +94,59 @@ canvas {
   gap: 20px;
 }
 
-/* Tarjetas con animación */
+/* Tarjetas minimal con efecto hover */
 .stat-card {
-  background: rgba(20, 20, 20, 0.9);
+  background: rgba(25, 25, 30, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 10px;
-  padding: 20px;
+  padding: 18px;
   text-align: center;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .stat-card:hover {
-  transform: scale(1.05);
-  background: rgba(0, 255, 224, 0.1);
+  transform: scale(1.04);
+  background: rgba(118, 199, 255, 0.06);
 }
 
 .stat-icon {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 10px;
-  color: #00ffe0;
+  color: #76c7ff;
 }
 
 .stat-content h4 {
-  font-size: 16px;
-  margin: 5px 0;
+  font-size: 15px;
+  margin: 4px 0;
 }
 
 .stat-value {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
-  color: #ff4b91;
+  color: #b69cff;
 }
 
 /* Lista de estados */
 .status-list li {
   font-size: 14px;
-  margin: 8px 0;
+  margin: 6px 0;
 }
 
 .status-success {
-  color: #00ff88;
+  color: #54d98c;
 }
 
 .status-error {
-  color: #ff4b4b;
+  color: #ff5c5c;
 }
 
 /* Alertas */
 .alert {
   padding: 15px;
   border-radius: 8px;
-  background: rgba(255, 243, 205, 0.1);
-  border: 1px solid rgba(255, 238, 186, 0.3);
-  color: #ffdd57;
+  background: rgba(255, 210, 100, 0.08);
+  border: 1px solid rgba(255, 210, 100, 0.25);
+  color: #ffd264;
 }
 
 .close-btn {

@@ -8,10 +8,7 @@
 </div>
 
 <div class="dashboard">
-  <div class="panel unique-routes">
-    <h3>Rutas Únicas</h3>
-    <div class="big-number">{{ uniqueRoutes }}</div>
-  </div>
+  <!-- 1: Registros por Día -->
   <div class="panel sessions">
     <h3>Registros por Día</h3>
     <canvas baseChart
@@ -20,18 +17,8 @@
             [options]="sessionsChartOptions"
             [type]="sessionsChartType"></canvas>
   </div>
-  <div class="panel total-logs">
-    <h3>Total de Registros</h3>
-    <div class="big-number">{{ totalLogs }}</div>
-  </div>
-  <div class="panel method-distribution">
-    <h3>Distribución de Métodos</h3>
-    <canvas baseChart
-            [datasets]="methodChartData.datasets"
-            [labels]="methodChartLabels"
-            [options]="methodChartOptions"
-            [type]="methodChartType"></canvas>
-  </div>
+
+  <!-- 2: Códigos de Estado -->
   <div class="panel status-codes">
     <h3>Códigos de Estado</h3>
     <canvas baseChart
@@ -40,6 +27,14 @@
             [options]="statusChartOptions"
             [type]="statusChartType"></canvas>
   </div>
+
+  <!-- 3: Rutas Únicas -->
+  <div class="panel unique-routes">
+    <h3>Rutas Únicas</h3>
+    <div class="big-number">{{ uniqueRoutes }}</div>
+  </div>
+
+  <!-- 4: Tendencia de Tiempo de Respuesta -->
   <div class="panel rt-trend">
     <h3>Tendencia de Tiempo de Respuesta</h3>
     <canvas baseChart
@@ -47,6 +42,22 @@
             [labels]="rtChartLabels"
             [options]="rtChartOptions"
             [type]="rtChartType"></canvas>
+  </div>
+
+  <!-- 5: Total de Registros -->
+  <div class="panel total-logs">
+    <h3>Total de Registros</h3>
+    <div class="big-number">{{ totalLogs }}</div>
+  </div>
+
+  <!-- 6: Distribución de Métodos -->
+  <div class="panel method-distribution">
+    <h3>Distribución de Métodos</h3>
+    <canvas baseChart
+            [datasets]="methodChartData.datasets"
+            [labels]="methodChartLabels"
+            [options]="methodChartOptions"
+            [type]="methodChartType"></canvas>
   </div>
 </div>
 
@@ -86,7 +97,11 @@
         <i class="pi pi-list stat-icon"></i>
         <h4>Conteo de Códigos de Estado</h4>
         <ul class="status-list">
-          <li *ngFor="let status of statusChartLabels" [ngClass]="{'status-success': status === '200', 'status-error': status === '401' || status === '404' || status === '500'}">
+          <li *ngFor="let status of statusChartLabels" 
+              [ngClass]="{
+                'status-success': status === '200', 
+                'status-error': status === '401' || status === '404' || status === '500'
+              }">
             Estado {{ status }}: {{ statusCounts[status] }} ocurrencias
           </li>
         </ul>
