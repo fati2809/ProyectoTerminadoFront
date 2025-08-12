@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LogService {
-  private apiUrl = 'https://auth-service-or5z.onrender.com/auth';
+  private apiUrl = 'https://auth-service-or5z.onrender.com/';
 
   constructor(private http: HttpClient) {}
 
