@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000/auth'
+  apiUrl: 'https://auth-service-or5z.onrender.com/auth'
 };
